@@ -1,10 +1,10 @@
 with sends_subscribers as (
     select * 
-    from {{ref('int4_sends_subs_by_campaign')}}
+    from {{ref('sb_int4_sends_subs_by_campaign')}}
 ),
 
 CAMPAIGN_DETAILS as (
-    select * from {{ref('stg_campaign_details')}}
+    select * from {{ref('sb_stg_campaign_details')}}
 ),
 
 sends_subscribers_unsubs as (

@@ -1,9 +1,9 @@
 with sends as (
-    select * from {{ref('int1_sends_by_campaign')}}
+    select * from {{ref('sb_int1_sends_by_campaign')}}
 ),
 
 subscribers as (
-    select * from {{ref('int4_final_subscribers')}}
+    select * from {{ref('sb_int4_final_subscribers')}}
 ),
 
 sends_subscribers as (

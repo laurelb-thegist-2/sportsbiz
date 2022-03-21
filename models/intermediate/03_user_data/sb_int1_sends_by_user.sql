@@ -1,7 +1,7 @@
 -- pulls from int1_sends_by_campaign in 01_newsletter_performance -> a_overall_performance
 
 with sends as (
-    select * from {{ref('int1_sends_by_campaign')}}
+    select * from {{ref('sb_int1_sends_by_campaign')}}
 ),
 
 sends_by_user as (

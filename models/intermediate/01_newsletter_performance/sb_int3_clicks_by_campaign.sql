@@ -1,9 +1,9 @@
 with CLICKS as (
-    select * from {{ref('stg_campaign_clicks')}}
+    select * from {{ref('sb_stg_campaign_clicks')}}
 ),
 
 CAMPAIGN_DETAILS as (
-    select * from {{ref('stg_campaign_details')}}
+    select * from {{ref('sb_stg_campaign_details')}}
 ),
 
 clicks_by_campaign as (

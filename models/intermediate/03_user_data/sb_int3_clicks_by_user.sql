@@ -1,13 +1,13 @@
 with campaign_clicks as (
-    select * from {{ref('stg_campaign_clicks')}}
+    select * from {{ref('sb_stg_campaign_clicks')}}
 ),
 
 partner_clicks as (
-    select * from {{ref('stg_partner_clicks')}}
+    select * from {{ref('sb_stg_partner_clicks')}}
 ),
 
 CAMPAIGN_DETAILS as (
-    select * from {{ref('stg_campaign_details')}}
+    select * from {{ref('sb_stg_campaign_details')}}
 ),
 
 CLICK_SUMMARY as (

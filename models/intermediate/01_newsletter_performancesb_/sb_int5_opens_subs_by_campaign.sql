@@ -1,11 +1,11 @@
 --boardman opens filtered out of total opens, but not unique opens
 
 with opens as (
-    select * from {{ref('int2_opens_by_campaign')}}
+    select * from {{ref('sb_int2_opens_by_campaign')}}
 ),
 
 subscribers as (
-    select * from {{ref('int4_final_subscribers')}}
+    select * from {{ref('sb_int4_final_subscribers')}}
 ),
 
 opens_subscribers as (

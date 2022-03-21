@@ -1,17 +1,17 @@
 with active as (
-    select * from {{ref('int1_active_subs')}}
+    select * from {{ref('sb_int1_active_subs')}}
 ),
 
 Bounced as (
-    select * from {{ref('int2_bounced_subs')}}
+    select * from {{ref('sb_int2_bounced_subs')}}
 ),
 
 Deleted as (
-    select * from {{ref('int3_deleted_subs')}}
+    select * from {{ref('sb_int3_deleted_subs')}}
 ),
 
 Unsubs as (
-    select * from {{ref('int4_unsubs')}}
+    select * from {{ref('sb_int4_unsubs')}}
 ),
 
 all_subs as ( 

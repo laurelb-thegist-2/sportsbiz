@@ -1,11 +1,11 @@
 with sends_subscribers_unsubs as (
     select * 
-    from {{ref('int8_sends_subscribers_unsubs')}}
+    from {{ref('sb_int8_sends_subscribers_unsubs')}}
 ),
 
 opens_clicks_subscribers as (
     select * 
-    from {{ref('int9_opens_clicks_subs_by_date')}}
+    from {{ref('sb_int9_opens_clicks_subs_by_date')}}
 ),
 
 campaign_data_by_date as (

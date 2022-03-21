@@ -3,7 +3,7 @@
 -- boardman opens are filtered out from this query for total opens, but not unique opens
 
 with opens as (
-    select * from {{ref('int2_opens_by_campaign')}}
+    select * from {{ref('sb_int2_opens_by_campaign')}}
 ),
 
 opens_by_user as (

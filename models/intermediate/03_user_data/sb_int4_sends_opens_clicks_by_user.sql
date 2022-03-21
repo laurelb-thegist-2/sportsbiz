@@ -1,13 +1,13 @@
 with SEND_SUMMARY as (
-    select * from {{ref('int1_sends_by_user')}}
+    select * from {{ref('sb_int1_sends_by_user')}}
 ),
 
 OPEN_SUMMARY as (
-    select * from {{ref('int2_opens_by_user')}}
+    select * from {{ref('sb_int2_opens_by_user')}}
 ),
 
 CLICK_SUMMARY as (
-    select * from {{ref('int3_clicks_by_user')}}
+    select * from {{ref('sb_int3_clicks_by_user')}}
 ),
 
 OPEN_SEND_CLICK_SUMMARY as 

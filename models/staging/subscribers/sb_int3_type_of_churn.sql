@@ -1,5 +1,5 @@
 with subscribers as (
-    select * from {{ref('stg_subscribers')}}
+    select * from {{ref('sb_stg_subscribers')}}
 ),
 
 voluntary as (

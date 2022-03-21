@@ -1,9 +1,9 @@
 with opens_subscribers as (
-    select * from {{ref('int5_opens_subs_by_campaign')}}
+    select * from {{ref('sb_int5_opens_subs_by_campaign')}}
 ),
 
 clicks_subscribers as (
-    select * from {{ref('int6_clicks_subs_by_campaign')}}
+    select * from {{ref('sb_int6_clicks_subs_by_campaign')}}
 ),
 
 opens_clicks_subscribers as (

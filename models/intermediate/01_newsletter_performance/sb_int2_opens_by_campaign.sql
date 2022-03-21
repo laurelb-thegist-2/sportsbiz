@@ -1,9 +1,9 @@
 with OPENS as (
-    select * from {{ref('stg_campaign_opens')}}
+    select * from {{ref('sb_stg_campaign_opens')}}
 ),
 
 CAMPAIGN_DETAILS as (
-    select * from {{ref('stg_campaign_details')}}
+    select * from {{ref('sb_stg_campaign_details')}}
 ),
 
 opens_by_campaign as (

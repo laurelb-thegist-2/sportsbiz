@@ -1,9 +1,9 @@
 with OPEN_SEND_CLICK_SUMMARY as (
-    select * from {{ref('int4_sends_opens_clicks_by_user')}}
+    select * from {{ref('sb_int4_sends_opens_clicks_by_user')}}
 ),
 
 SUBSCRIBERS as (
-    select * from {{ref('int4_final_subscribers')}}
+    select * from {{ref('sb_int4_final_subscribers')}}
 ),
 
 deleted_subs as (

@@ -1,17 +1,17 @@
 with subscribers as (
-    select * from {{ref('stg_subscribers')}}
+    select * from {{ref('sb_stg_subscribers')}}
 ),
 
 growth_int_bucket as (
-    select * from {{ref('int1_growth_int_bucket')}}
+    select * from {{ref('sb_int1_growth_int_bucket')}}
 ),
 
 growth_bucket as (
-    select * from {{ref('int2_growth_bucket')}}
+    select * from {{ref('sb_int2_growth_bucket')}}
 ),
 
 churn_type as (
-    select * from {{ref('int3_type_of_churn')}}
+    select * from {{ref('sb_int3_type_of_churn')}}
 ),
 
 final_subscribers as (

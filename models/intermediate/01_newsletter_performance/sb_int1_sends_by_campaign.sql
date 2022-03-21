@@ -1,13 +1,13 @@
 with EMAIL_SENDS as (
-    select * from {{ref('stg_email_sends')}}
+    select * from {{ref('sb_stg_email_sends')}}
 ),
 
 CAMPAIGN_DETAILS as (
-    select * from {{ref('stg_campaign_details')}}
+    select * from {{ref('sb_stg_campaign_details')}}
 ),
 
 Campaign_Bounces as (
-    select * from {{ref('stg_campaign_bounces')}}
+    select * from {{ref('sb_stg_campaign_bounces')}}
 ),
 
 sends as (

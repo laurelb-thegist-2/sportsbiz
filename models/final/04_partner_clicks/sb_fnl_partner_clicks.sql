@@ -1,5 +1,5 @@
 with campaign_clicks_details_subs as (
-    select * from {{ref('int2_campaign_clicks_details_subs')}}
+    select * from {{ref('sb_int2_campaign_clicks_details_subs')}}
 ),
 
 partner_clicks as (

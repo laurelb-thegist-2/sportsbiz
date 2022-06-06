@@ -40,3 +40,4 @@ final_subscribers as (
 )
 
 select * from final_subscribers
+limit 100000

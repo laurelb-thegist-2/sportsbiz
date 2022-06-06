@@ -1,52 +1,35 @@
-with active as (
-    select * from {{ref('sb_int1_active_subs')}}
+-- pulls from user queries in the intermediate -> 04_user_data folders
+
+with OPEN_SEND_CLICK_SUMMARY as (
+    select * from {{ref('sb_int4_sends_opens_clicks_by_user')}}
 ),
 
-Bounced as (
-    select * from {{ref('sb_int2_bounced_subs')}}
+SUBSCRIBERS as (
+    select * from {{ref('sb_int4_final_subscribers')}}
 ),
 
-Deleted as (
-    select * from {{ref('sb_int3_deleted_subs')}}
-),
-
-Unsubs as (
-    select * from {{ref('sb_int4_unsubs')}}
-),
-
-all_subs as ( 
-    select 
-        Growth_Bucket,
-        Incentivization, 
-        coalesce(active.Active_Volume, 0) as Active_Volume,
-        active.Active_Unique_Open_Rate,
-        active.Active_Click_Rate,
-        active.Active_Total_CTOR,
-        active.Active_Partner_Click_Rate,
-        active.Active_Partner_Total_CTOR,
-        coalesce(Unsubs.Unsubs_Volume, 0) as Unsubs_Volume,
-        Unsubs.Unsubs_Unique_Open_Rate,
-        Unsubs.Unsubs_Click_Rate,
-        Unsubs.Unsubs_Total_CTOR,
-        Unsubs.Unsubs_Partner_Click_Rate,
-        Unsubs.Unsubs_Partner_Total_CTOR,
-        coalesce(Bounced.bounced_Volume, 0) as Bounced_Volume,
-        Bounced.bounced_Unique_Open_Rate,
-        Bounced.bounced_Click_Rate,
-        Bounced.bounced_Total_CTOR,
-        Bounced.bounced_Partner_Click_Rate,
-        Bounced.bounced_Partner_Total_CTOR,
-        coalesce(Deleted.deleted_Volume, 0) as Deleted_Volume,
-        Deleted.deleted_Unique_Open_Rate,
-        Deleted.deleted_Click_Rate,
-        Deleted.deleted_Total_CTOR,
-        Deleted.deleted_Partner_Click_Rate,
-        Deleted.deleted_Partner_Total_CTOR
-    from active 
-    LEFT JOIN Unsubs using (Growth_Bucket, Incentivization)
-    LEFT JOIN deleted using (Growth_Bucket, Incentivization)
-    LEFT JOIN bounced using (Growth_Bucket, Incentivization)
+Total_subs as (
+SELECT 
+    coalesce(SUBSCRIBERS.Growth_Bucket, 'Organic/Unknown') as Growth_Bucket,
+    coalesce(SUBSCRIBERS.Growth_Int_Bucket, 'N/A') as Growth_Int_Bucket,
+    SUBSCRIBERS.Growth_Channel,
+    coalesce(SUBSCRIBERS.Incentivization, 'Unincentivized') as Incentivization,
+    count(Email) Total_Volume,
+    sum(CASE WHEN unique_opens > 0 THEN 1 ELSE 0 END) Openers,
+    sum(CASE WHEN total_clicks > 0 THEN 1 ELSE 0 END) Clickers,
+    sum(CASE WHEN status = 'Active' THEN 1 ELSE 0 END) Active_Volume,
+    sum(CASE WHEN status = 'Active' THEN unique_opens END)/sum(CASE WHEN status = 'Active' THEN delivered END) Active_UOR,
+    sum(CASE WHEN status = 'Active' THEN total_clicks END)/sum(CASE WHEN status = 'Active' THEN delivered END) Active_CTR,
+    sum(CASE WHEN status = 'Active' THEN total_partner_clicks END)/sum(CASE WHEN status = 'Active' THEN delivered END) Active_Partner_CTR,
+    sum(CASE WHEN status = 'Unsubscribed' THEN 1 ELSE 0 END) Unsubscribed_Volume,
+    sum(CASE WHEN status = 'Deleted' THEN 1 ELSE 0 END) Deleted_Volume,
+    sum(CASE WHEN status = 'Bounced' THEN 1 ELSE 0 END) Bounced_Volume
+FROM OPEN_SEND_CLICK_SUMMARY
+LEFT JOIN SUBSCRIBERS using (EMAIL)
+WHERE FIRST_SEND > '2021-12-31'
+Group by 1,2,3,4
 )
 
-select * from all_subs
-order by 1
+select *
+from Total_subs
+ORDER BY 1

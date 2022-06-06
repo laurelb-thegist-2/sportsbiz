@@ -9,15 +9,13 @@ with opens as (
 opens_by_user as (
     select 
         Email,
-        Campaign_ID,
-        Campaign_Date,
-        Name,
         MIN(Timestamp) First_Open,
         MAX(Timestamp) Most_Recent_Open,
         count(CASE WHEN City_of_Open != 'Boardman' or city_of_open is NULL THEN email END) Total_Opens,
-        count(distinct email) Unique_Opens
+        count(distinct Campaign_ID) Unique_Opens
     from opens
-    GROUP BY 1, 2, 3, 4
+    GROUP BY 1
 )
 
 select * from opens_by_user
+limit 100000

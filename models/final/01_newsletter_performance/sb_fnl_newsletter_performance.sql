@@ -34,6 +34,14 @@ campaign_data_by_date as (
     GROUP BY 1
 )
 
-select * from campaign_data_by_date
-WHERE Campaign_Date > dateadd(month, -1, GETDATE())
+select
+*,
+ROUND((Unique_Open_Rate - 0.09)*Delivered*(Total_Opens / Unique_Opens)) as Adjusted_Total_Opens,
+ROUND((Unique_Open_Rate - 0.09)*Delivered) as Adjusted_Unique_Opens,
+Unique_Open_Rate - 0.09 as Adjusted_UOR,
+(Unique_Open_Rate - 0.09)*Delivered*(Total_Opens / Unique_Opens) / Delivered as Adjusted_TOR,
+Total_Clicks / ((Unique_Open_Rate - 0.09)*Delivered*(Total_Opens / Unique_Opens)) as Adjusted_CTOR,
+total_unsubscribes / ((Unique_Open_Rate - 0.09)*Delivered) as Adjusted_Unsubscribe_per_Open
+from campaign_data_by_date
+--WHERE Campaign_Date > dateadd(month, -1, GETDATE())
 ORDER BY 1

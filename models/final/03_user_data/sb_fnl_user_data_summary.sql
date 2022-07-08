@@ -13,6 +13,8 @@ SELECT
     SUBSCRIBERS.Growth_Bucket,
     FIRST_SEND,
     MOST_RECENT_SEND,
+    MOST_RECENT_OPEN,
+    MOST_RECENT_CLICK,
     SUBSCRIBERS.Email,
     SUBSCRIBERS.Status,
     sum(delivered) AS DELIVERED,
@@ -24,7 +26,7 @@ SELECT
     case when sum(total_opens) > 0 then sum(total_clicks)/sum(total_opens) else 0 end as TOTAL_CTOR
 FROM OPEN_SEND_CLICK_SUMMARY
 LEFT JOIN SUBSCRIBERS using (EMAIL)
-Group by 1,2,3,4,5,6,7
+Group by 1,2,3,4,5,6,7,8,9
 )
 
 select * from user_data_by_growth_channel
